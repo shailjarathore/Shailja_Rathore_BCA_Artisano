@@ -10,6 +10,7 @@ Artisano is a multi-vendor eCommerce platform built with Flask and MySQL, design
 https://drive.google.com/file/d/1RYYsurZ2iBv3mly3Ggdv503bi3-Cb8Nu/view?usp=sharing
 
 *TECHNOLOGIES USED*
+
 Frontend: HTML, CSS, JavaScript (no React)
 Backend: Flask (Python)
 Database: MySQL
