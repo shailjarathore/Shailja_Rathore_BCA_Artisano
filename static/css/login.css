@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("../images/Signup.png");
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+    margin: 0;
+    padding: 0;
+    animation: fadeIn 1.5s ease-in-out forwards, zoomIn 5s ease-in-out forwards;
+    font-family: "Monomakh", system-ui;
+}
+
+.container {
+    display: flex;
+    align-content: space-evenly;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 383px;
+    padding: 25px;
+    margin: 30px 0 0 100px;
+    transform: translateY(-30px);
+    opacity: 0;
+    animation: slideIn 1s ease-out forwards;
+}
+
+h2 {
+    text-align: center;
+}
+
+input {
+    display: block;
+    width: 90%;
+    margin: 10px;
+    padding: 8px;
+    background-color: rgb(255, 246, 244);
+    border: none;
+}
+
+button {
+    display: block;
+    width: 50%;
+    padding: 10px;
+    background-color: #9e521b;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    margin: 15px auto;
+}
+
+button:hover {
+    background-color: black;
+}
+
+label {
+    font-weight: bold;
+}
+
+.required {
+    color: red;
+    font-weight: bold;
+}
+
+p {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #9e521b;
+}
+
+a:hover {
+    color: black;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+#message {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    color: red;
+}

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTISANO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monomakh&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: #fff;
+            color: #111;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cart-wrapper {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .cart-box {
+            flex: 2;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-details h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .item-details p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .item-price {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            background: #f1f1f1;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 16px;
+            gap: 10px;
+            margin-top: 10px;
+            width: fit-content;
+        }
+
+        .qty-controls button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .summary-box {
+            flex: 1;
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .summary-box h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .summary-box p {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .summary-box p.discount {
+            color: red;
+        }
+
+        .summary-box h2 {
+            display: flex;
+            justify-content: space-between;
+            font-size: 22px;
+            margin-top: 20px;
+        }
+
+        .checkout-btn {
+            margin-top: 20px;
+            width: 100%;
+            background: #2C1A00;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 14px;
+            font-size: 16px;
+        }
+
+        .checkout-btn:hover {
+            background: #b0a7a1;
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <section class="scroll-animation">
+        <div class="head">
+            <div>
+                <h2>Your Cart</h2>
+                <p>Your Cart Awaits – Finalize Your Order and Celebrate Craftsmanship!</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="cart-wrapper">
+                <div class="cart-box">
+                    {% if cart_items %}
+                    {% for item in cart_items %}
+                    <div class="cart-item" id="cart-item-{{ item.id }}">
+                        <img src="{{ item.image }}" alt="{{ item.title }}">
+                        <div class="item-details">
+                            <h4>{{ item.title }}</h4>
+                            <div class="item-price">${{ item.price }}</div>
+                            <div class="qty-controls">
+                                <button onclick="updateQuantity('{{ item.id }}', -1)">-</button>
+                                <span id="item-quantity-{{ item.id }}">{{ item.quantity }}</span>
+                                <button onclick="updateQuantity('{{ item.id }}', 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart('{{ item.id }}')">
+                            <img src="{{ url_for('static', filename='images/icons/Trash.png') }}" alt="Remove"
+                                style="width: 20px; height: 20px;">
+                        </button>
+
+                    </div>
+
+                    {% endfor %}
+                    {% else %}
+                    <h2 style="text-align:center; margin-top:20px;">NO ITEMS IN THE CART</h2>
+                    {% endif %}
+                </div>
+
+                <div class="summary-box">
+                    <h3>Order Summary</h3>
+                    <p><span>Subtotal</span><span>₹{{ subtotal }}</span></p>
+                    <p class="discount"><span>Discount ({{ discount_percentage }}%)</span><span>-₹{{ discount }}</span>
+                    </p>
+                    <h2><span>Total</span><span>₹{{ total }}</span></h2>
+
+                    {% if cart_items %}
+                    <button class="checkout-btn" id="checkoutBtn">Go to Checkout →</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+
+    <script src="../static/js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchCart();
+
+            function fetchCart() {
+                fetch('/api/cart')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            renderCart(data.items);
+                            updateSummary(data); // Add this line
+                        }
+                    })
+                    .catch(error => console.error('Error fetching cart:', error));
+            }
+
+
+            function renderCart(items) {
+                const cartWrapper = document.querySelector('.cart-box');
+                cartWrapper.innerHTML = '';
+
+                if (items.length === 0) {
+                    cartWrapper.innerHTML = '<h2 style="text-align:center; margin-top:20px;">NO ITEMS IN THE CART</h2>';
+                    return;
+                }
+
+                items.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('cart-item');
+                    cartItem.id = `cart-item-${item.id}`;
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.title}">
+                        <div class="item-details">
+                            <h4>${item.title}</h4>
+                            <div class="item-price">₹${item.price}</div>
+                            <div class="qty-controls">
+                                <button onclick="updateQuantity('${item.id}', -1)">-</button>
+                                <span id="item-quantity-${item.id}">${item.quantity}</span>
+                                <button onclick="updateQuantity('${item.id}', 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart('${item.id}')">
+                            <img src="/static/images/icons/Trash.png" alt="Remove" style="width: 20px; height: 20px;">
+                        </button>
+
+                    `;
+                    cartWrapper.appendChild(cartItem);
+                });
+            }
+        });
+
+        function updateQuantity(itemId, change) {
+            fetch(`/api/cart/update/${itemId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ change: change })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const itemQuantity = document.querySelector(`#item-quantity-${itemId}`);
+                        if (itemQuantity) itemQuantity.textContent = data.new_quantity;
+                        // Call updateSummary to refresh the total price after quantity change
+                        fetchCart();
+                    } else {
+                        alert(data.error);
+                    }
+                })
+                .catch(error => console.error('Error updating quantity:', error));
+        }
+
+        function removeFromCart(itemId) {
+            fetch(`/api/cart/remove/${itemId}`, {
+                method: 'DELETE'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const itemElement = document.querySelector(`#cart-item-${itemId}`);
+                        if (itemElement) itemElement.remove();
+                        // Call updateSummary to refresh the total price after item removal
+                        fetchCart();
+                    } else {
+                        alert(data.error);
+                    }
+                })
+                .catch(error => console.error('Error removing item:', error));
+        }
+
+        function updateSummary(data) {
+            const summaryBox = document.querySelector('.summary-box');
+            summaryBox.innerHTML = `
+        <h3>Order Summary</h3>
+        <p><span>Subtotal</span><span>₹${data.subtotal}</span></p>
+        <p class="discount"><span>Discount (${data.discount_percentage}%)</span><span>-₹${data.discount}</span></p>
+        <h2><span>Total</span><span>₹${data.total}</span></h2>
+        ${data.items.length > 0 ? '<button class="checkout-btn" id="checkoutBtn">Go to Checkout →</button>' : ''}
+    `;
+
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function () {
+                    window.location.href = '/checkout';
+                });
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>

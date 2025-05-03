@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTISANO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monomakh&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <style>
+        order-header {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2C1A00;
+            margin: 20px 0;
+        }
+
+        .confirmed {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: justify;
+            flex-direction: column;
+            margin: 50px;
+            gap: 11px;
+            position: relative;
+        }
+
+        .order-details {
+            background-color: #fff5e6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: justify;
+            flex-direction: column;
+            margin: auto;
+            padding: 20px;
+            width: 70%;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .order-details p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .shipping-info {
+            font-size: 16px;
+            color: #555;
+            margin-top: 20px;
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .order-details b,
+        .shipping-info {
+            color: #7a5c46;
+        }
+
+        .emoji {
+            font-size: 24px;
+            color: #2C1A00;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'header.html' %}
+    <section class="scroll-animation">
+        <div class="head">
+            <div>
+                <h2>Order Successful</h2>
+                <p>Order Confirmed – Get Ready to Experience Handmade Magic!</p>
+            </div>
+        </div>
+        <div class="confirmed">
+            <h2 class="order-header">Your Order Is on Its Way! 🎉</h2>
+            <p>Thank you for your order, {{ shipping_info.firstname }}!</p>
+            <p>You’ve just made a wonderful choice by supporting artisans who pour their heart and soul into creating
+                unique
+                handmade treasures. Your order is now being prepared with love and care, and it's only a matter of time
+                before
+                it reaches you!</p>
+            <div>
+                <p><b>Shipping to:</b> {{ shipping_info.address }}, {{ shipping_info.city }}, {{ shipping_info.state }}
+                    - {{shipping_info.zip }}</p>
+            </div>
+        </div>
+        <div class="order-details">
+            <p><b>Here’s What’s Happening Behind the Scenes:</b></p>
+            <p><span class="emoji">✨</span><b> Order Confirmed:</b> We’ve received your order and our artisans are
+                already excited to start bringing it to life!</p>
+            <p><span class="emoji">🛠️</span><b> Crafting & Processing:</b> Our team is carefully preparing your
+                handmade creations – expect only the finest quality and craftsmanship.</p>
+            <p><span class="emoji">🚚</span><b> Shipping Soon:</b> Once it’s ready to go, we’ll send you the tracking
+                details so you can follow your order’s journey to your doorstep.</p>
+        </div>
+
+
+    </section>
+    {% include 'footer.html' %}
+    <script src="../static/js/main.js"></script>
+</body>
+
+</html>

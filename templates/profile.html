@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTISANO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monomakh&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <style>
+        .sidebar {
+            width: 250px;
+            background-color: #1e1e2f;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 22px;
+            color: #ffb347;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 12px 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .sidebar li:hover,
+        .sidebar li.active {
+            background-color: #ffb347;
+            color: #1e1e2f;
+            font-weight: bold;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            background-color: white;
+            overflow-y: auto;
+        }
+
+        .profile {
+            padding: 40px;
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .profile-info label {
+            font-size: 18px;
+        }
+
+        .profile-info input {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .profile-info button {
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .profile-info button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <section class="scroll-animation">
+        <div class="main-container">
+            <div class="sidebar">
+                <h2>My Profile</h2>
+                <ul>
+                    <li class="active" onclick="showSection('personal')">Personal Details</li>
+                    <li onclick="showSection('orders')">Orders</li>
+                    <li onclick="showSection('addresses')">Addresses</li>
+                </ul>
+            </div>
+
+            <div class="main-content" id="content">
+                <h2>Loading..</h2>
+            </div>
+
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+
+    <script src="../static/js/main.js"></script>
+    <script>
+        const content = document.getElementById("content");
+        const items = document.querySelectorAll(".sidebar li");
+
+        function showSection(section) {
+            items.forEach(item => item.classList.remove("active"));
+            const selected = Array.from(items).find(item =>
+                item.textContent.toLowerCase().includes(section)
+            );
+            selected.classList.add("active");
+
+            fetch(`/profile/${section}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (section === "personal") {
+                        content.innerHTML = `
+                        <h2>Personal Details</h2>
+                        <p>Name: ${data.name}</p>
+                        <p>Email: ${data.email}</p>
+                        <p>Phone: ${data.phone}</p>
+                        `;
+                    } else if (section === "orders") {
+                        content.innerHTML = `<h2>Your Orders</h2><ul>` +
+                            data.orders.map(order => `<li>${order}</li>`).join('') +
+                            `</ul>`;
+                    } else if (section === "addresses") {
+                        content.innerHTML = `<h2>Saved Addresses</h2>` +
+                            data.addresses.map(addr => `<p>${addr}</p>`).join('');
+                    }
+                })
+                .catch(error => {
+                    content.innerHTML = `<h2>Error loading data</h2>`;
+                    console.error(error);
+                });
+        }
+
+        // Load personal details by default
+        showSection('personal');
+    </script>
+</body>
+
+</html>

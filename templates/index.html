@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTISANO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monomakh&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+
+<body>
+    <div class="preloader">
+        <div class="preloader-text">
+            <h1 class="preload-head">ARTISANO</h1><br>
+            <p class="preloader-p">Where Creativity Meets Community</p>
+        </div>
+    </div>
+    {% include 'header.html' %}
+
+    <section class="main scroll-animation">
+        <div class="main-text">
+            <h1>Crafted for Those Who <span>Appreciate Art</span></h1>
+            <p>At <span>ARTISANO</span>, we believe that every handmade item carries a story. From the artisan’s
+                skilled hands to your home, each creation reflects passion, tradition, and love. Explore the
+                carefully
+                crafted collection and bring home something truly special.</p>
+            <a href="#" class="btn">View Our Collection →</a>
+        </div>
+        <div class="main-images">
+            <img src="../static/images/div1-small.png" class="img-small">
+            <img src="../static/images/div1-medium.jpg" class="img-medium">
+        </div>
+    </section>
+
+    <section class="scroll-animation">
+        <div class="div2">
+            <div class="div2-images">
+                <div>
+                    <img class="img1" src="../static/images/div2-img1.jpg">
+                </div>
+                <div>
+                    <img class="img2" src="../static/images/div2-img2.jpeg">
+                </div>
+                <div>
+                    <h2 class="div2-text">Discover unique, handcrafted creations
+                        from talented artisans</h2>
+                    <img class="img3" src="../static/images/div2-img3.jpg">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="scroll-animation">
+        <div class="div3">
+            <div>
+                <h2>Unique Handicrafts Collection</h2>
+            </div>
+            <div class="div3-images">
+                <div>
+                    <img class="" src="../static/images/div-3-festive.jpg">
+                    <h3>Festive & Religious</h3>
+                </div>
+
+                <div>
+                    <img class="" src="../static/images/div3-art.png">
+                    <h3>Art & Collectibles</h3>
+                </div>
+
+                <div>
+                    <img class="" src="../static/images/div3-home-decor.jpg">
+                    <h3>Home Decor</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+    <script src="../static/js/main.js"></script>
+
+</body>
+
+</html>

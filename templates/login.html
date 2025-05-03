@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monomakh&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+
+<body>
+    <div class="container">
+        <form id="loginForm" class="form-container">
+            <h2>LOGIN</h2>
+            <label>Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required>
+
+            <label>Password <span class="required">*</span></label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">LOGIN</button>
+            <p><a href="#">Forgot Password?</a></p>
+            <p>Craft your journey with us! <a href="signup.html">Create an account.</a></p>
+            <p id="message"></p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                document.getElementById("message").innerText = data.message || data.error;
+
+                if (response.ok) {
+                    setTimeout(() => {
+                        window.location.href = "/";  // Redirect to homepage
+                    }, 1500);
+                }
+
+            } catch (error) {
+                document.getElementById("message").innerText = "Error connecting to the server. Please try again.";
+            }
+        });
+    </script>
+</body>
+
+</html>

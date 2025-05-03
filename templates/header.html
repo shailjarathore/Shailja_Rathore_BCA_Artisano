@@ -1,0 +1,35 @@
+<header>
+    <div class="logo"><a href="{{ url_for('home') }}" style="text-decoration: none; color: inherit;">ARTISANO</a>
+    </div>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('shop') }}">Shop</a></li>
+            <li><a href="{{ url_for('brands') }}">Brands</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="search-container">
+        <img src="{{ url_for('static', filename='images/icons/Search.png') }}" alt="Search">
+        <input type="text" placeholder="Search">
+    </div>
+
+    {% if logged_in %}
+    <div class="icons">
+        <a href="{{ url_for('cart') }}"><img src="{{ url_for('static', filename='images/icons/cart.png') }}"
+                alt="Cart"></a>
+        <a href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='images/icons/Account.png') }}"
+                alt="Profile"></a>
+    </div>
+    <div class="sign-btn">
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    {% else %}
+    <div class="sign-btn">
+        <a href="{{ url_for('signup') }}">SIGNUP</a>
+    </div>
+    <div class="sign-btn">
+        <a href="{{ url_for('login') }}">LOGIN</a>
+    </div>
+    {% endif %}
+</header>

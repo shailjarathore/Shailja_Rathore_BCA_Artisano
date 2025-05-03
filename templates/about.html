@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTISANO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monomakh&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <style>
+        .head {
+            display: flex;
+            justify-content: flex-start;
+            padding: 45px;
+            padding-left: 75px;
+            background-color: #2C1A00;
+            color: white;
+        }
+ 
+        .about-main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 50px;
+            gap: 11px;
+            position: relative;
+        }
+
+        .about-main p {
+            text-align: justify;
+            position: relative;
+            width: 360px;
+            padding: 10px;
+        }
+
+        .img-1 {
+            width: 217px;
+            height: 300px;
+            z-index: 2;
+            border-radius: 13px 55px 13px 55px;
+            position: relative;
+        }
+
+        .img-2 {
+            width: 217px;
+            height: 300px;
+            z-index: 2;
+            border-radius: 13px 55px 13px 55px;
+            top: 25px;
+            position: relative;
+        }
+
+        .div2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin: 79px;
+            padding: 45px;
+            gap: 15px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .div2 h1{
+            color: #8b6f47;
+            font-size: 33px;
+        }
+
+        .box-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .box-container-img{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .box-container h3{
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .box-container p{
+            text-align: justify;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <section class="scroll-animation">
+        <div class="head">
+            <div>
+                <h2>About Us</h2>
+                <p>Your Destination for Authentic Handmade Treasures.</p>
+            </div>
+        </div>
+        <div class="about-main">
+
+            <div>
+                <h1>Our Mission</h1>
+                <p>We aim to empower artisans and small businesses by providing them with a centralized platform to
+                    reach a global audience. By eliminating the complexities of selling online, we ensure that creators
+                    can focus on what they do best—crafting exceptional products.</p>
+            </div>
+            <img class="img-1" src="../static/images/about-img2.jpg">
+            <img class="img-2" src="../static/images/about-img1.jpg">
+        </div>
+
+        <div class="div2 scroll-animation">
+            <h1>Why Choose Artisano?</h1>
+            <div class="box-container">
+                <div>
+                    <div class="box-container-img"><img src="../static/images/icons/Store.png"></div>
+                    <h3>Support Local & Small Businesses</h3>
+                    <p>Every purchase directly supports independent artisans.</p>
+                </div>
+                <div>
+                    <div class="box-container-img"><img src="../static/images/icons/Gift.png"></div>
+                    <h3>Unique & Handcrafted</h3>
+                    <p>Discover products that are made with love and attention to detail.</p>
+                </div>
+                <div>
+                    <div class="box-container-img"><img src="../static/images/icons/Delivery 2.png"></div>
+                    <h3>Secure & Seamless Shopping</h3>
+                    <p>Enjoy a safe and smooth shopping experience with secure payments.</p>
+                </div>
+                <div>
+                    <div class="box-container-img"><img src="../static/images/icons/Heart-1.png"></div>
+                    <h3>Community-Driven</h3>
+                    <p>Join a growing community that values authenticity and craftsmanship.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+    <script src="../static/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTISANO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monomakh&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <style>
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 50px;
+            gap: 60px;
+        }
+
+        .billing,
+        .summary {
+            flex: 1;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .row input {
+            flex: 1;
+        }
+
+        .summary-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .summary-box .product,
+        .summary-box .total {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .total span:last-child {
+            font-weight: bold;
+            color: #E8A400;
+            font-size: 18px;
+        }
+
+        .payment-method {
+            margin: 20px 0;
+        }
+
+        .payment-method label {
+            display: block;
+            margin: 8px 0;
+        }
+
+        .place-order {
+            width: 100%;
+            padding: 12px;
+            margin-top: 23px;
+            background: transparent;
+            border: 1px solid #000;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .place-order:hover {
+            background: #2C1A00;
+            color: #fff;
+        }
+
+        .privacy {
+            font-size: 12px;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .privacy a {
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <section class="scroll-animation">
+        <div class="head">
+            <div>
+                <h2>Checkout</h2>
+                <p>Confirm and Celebrate – Your Handmade Journey Starts Here!</p>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Billing Section -->
+            <div class="billing">
+                <h2>Billing Details</h2>
+                <form action="/place-order" method="POST">
+                    <div class="row">
+                        <input type="text" name="firstname" placeholder="First Name" value="{{ user.firstname }}">
+                        <input type="text" name="lastname" placeholder="Last Name" value="{{ user.lastname }}">
+                    </div>
+                    <input type="text" name="address" placeholder="Street address" required>
+                    <input type="text" name="city" placeholder="Town / City" required>
+                    <input type="text" name="state" placeholder="State" required>
+                    <input type="text" name="zip" placeholder="ZIP code" required>
+                    <input type="text" name="phone" placeholder="Phone" required>
+                    <input type="email" name="email" placeholder="Email address" value="{{ user.email }}">
+
+            </div>
+
+            <!-- Summary Section -->
+            <div class="summary">
+                <div class="summary-box">
+                    <h2>Product</h2>
+                    {% for item in cart_items %}
+                    <div class="product">
+                        <span>{{ item.title }} × {{ item.quantity }}</span>
+                        <span>Rs. {{ item.price * item.quantity }}</span>
+                    </div>
+                    {% endfor %}
+
+                    <div class="product">
+                        <span>Subtotal</span>
+                        <span>Rs. {{ subtotal }}</span>
+                    </div>
+
+                    <div class="total">
+                        <span>Total</span>
+                        <span>Rs. {{ total }}</span>
+                    </div>
+
+                    <div class="payment-method">
+                        <label>
+                            <input type="radio" name="payment" value="bank" checked>
+                            Direct Bank Transfer
+                        </label>
+                        <p style="font-size: 12px; color: #666;">
+                            Make your payment directly into our bank account. Please use your Order ID as the payment
+                            reference. Your order will not be shipped until the funds have cleared in our account.
+                        </p>
+                        <label>
+                            <input type="radio" name="payment" value="cod">
+                            Cash on Delivery
+                        </label>
+                    </div>
+
+                    <p class="privacy">
+                        Your personal data will be used to support your experience throughout this website, to manage
+                        access to your account, and for other purposes described in our
+                        <a href="#">privacy policy</a>.
+                    </p>
+
+                    <button type="submit" class="place-order">Place order</button>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+    <script src="../static/js/main.js"></script>
+</body>
+
+</html>
